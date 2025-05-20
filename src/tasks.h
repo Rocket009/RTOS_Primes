@@ -14,10 +14,6 @@
 #define QUEUE_LEN 10
 #define QUEUE_DATATYPE uint32_t
 
-// Queue to transfer prime numbers from task 1 
-// to task 2 for processing
-// holds the handle for the queue for the static queue
-QueueHandle_t prime_queue;
 
 void Task1_Loop(void);
 void Task2_Loop(void);

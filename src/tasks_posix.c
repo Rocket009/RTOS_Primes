@@ -132,10 +132,6 @@ void SYS_Tasks ( void )
                 TASK2_PRIORITY,
                 &xTask2);
 
-    // Initalize prime number queue to handler type
-    // So we can access the queue in both tasks
-    prime_queue = xQueueCreate(QUEUE_LEN, sizeof(QUEUE_DATATYPE));
-    configASSERT(prime_queue != NULL);
     /* Start RTOS Scheduler. */
 
     /**********************************************************************
