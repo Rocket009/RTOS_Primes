@@ -9,10 +9,6 @@
 #include "tasks.h"
 #include "definitions.h"
 
-// Queue to transfer prime numbers from task 1 
-// to task 2 for processing
-// holds the handle for the queue for the static queue
-static QueueHandle_t prime_number_queue = NULL;
 
 // Returns first divisor of a passed number n
 // Returns 0 as you can't divide by 0, If the number is prime or is 0 or 1
@@ -37,14 +33,8 @@ uint32_t find_divisor(uint32_t n)
 }
 
 // The existing code below is provided as a reference for existing functions you can use
-void Task1_Loop ( void )
+void Task1_Loop (QueueHandle_t prime_number_queue)
 {
-    if(prime_number_queue == NULL)
-    {
-        // Initalize prime number queue in Task1 as it has higher priority
-        // So we can access the queue in both tasks
-        prime_number_queue = xQueueCreate(QUEUE_LEN, sizeof(QUEUE_DATATYPE));
-    }
     // Attempt to read from UART2
     uint8_t buffer[64];
     size_t bytes_read = UART2_Read(buffer, 64);
@@ -77,7 +67,7 @@ void Task1_Loop ( void )
     vTaskDelay(10);
 }
 
-void Task2_Loop ( void )
+void Task2_Loop (QueueHandle_t prime_number_queue)
 {
     uint32_t prime_number;
     // pop prime number from queue waiting indefinitely for a new number
@@ -86,7 +76,10 @@ void Task2_Loop ( void )
         return;
     uint32_t divisor = find_divisor(prime_number);
     if(divisor > 0)
+    {
         // Write divisor to UART3
         UART3_Write((uint8_t*)&divisor, sizeof(divisor));
+        console_print("Divisor: %u\r\n", divisor);
+    }
     vTaskDelay(10); 
 }

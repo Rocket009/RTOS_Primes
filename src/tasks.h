@@ -15,7 +15,7 @@
 #define QUEUE_DATATYPE uint32_t
 
 
-void Task1_Loop(void);
-void Task2_Loop(void);
+void Task1_Loop(QueueHandle_t prime_number_queue);
+void Task2_Loop(QueueHandle_t prime_number_queue);
 
 #endif

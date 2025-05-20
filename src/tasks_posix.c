@@ -59,10 +59,17 @@
 // *****************************************************************************
 // *****************************************************************************
 
+// Queue to transfer prime numbers from task 1 
+// to task 2 for processing
+// holds the handle for the queue for the static queue
+static QueueHandle_t prime_number_queue = NULL;
 
 TaskHandle_t xSim_Tasks;
 void lSim_Tasks(  void *pvParameters  )
 {
+    // Initalize prime number queue in this task as it has higher priority than all other tasks
+    // So we can access the queue in both tasks
+    prime_number_queue = xQueueCreate(QUEUE_LEN, sizeof(QUEUE_DATATYPE));
     while(1)
     {
         SIM_APP_Tasks();
@@ -76,7 +83,7 @@ void lTask1(  void *pvParameters  )
 {
     while(1)
     {
-        Task1_Loop();
+        Task1_Loop(prime_number_queue);
     }
 }
 
@@ -85,7 +92,7 @@ void lTask2(  void *pvParameters  )
 {
     while(1)
     {
-        Task2_Loop();
+        Task2_Loop(prime_number_queue);
     }
 }
 
