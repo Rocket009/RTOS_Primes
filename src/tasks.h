@@ -11,7 +11,7 @@
 #define TASK1_PRIORITY 3
 #define TASK2_PRIORITY 2
 
-#define QUEUE_LEN 10
+#define QUEUE_LEN 3
 #define QUEUE_DATATYPE uint32_t
 
 

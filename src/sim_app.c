@@ -25,6 +25,8 @@
 #define BACKLOG 1   
 #define NUM_SOCKS 2
 
+extern void reset_counters();
+
 SIM_SOCKET_DATA sim_socks[MAX_SOCKET_CONNECTIONS];
 
 SIM_SOCKET_DATA U2;
@@ -59,7 +61,7 @@ int REGISTER_SOCK(char* SERVERNAME, int PORT)
     s = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 
     int yes=1;
-    if (setsockopt(s,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof yes) == -1) {
+    if (setsockopt(s,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(yes)) == -1) {
         perror("setsockopt");
         exit(1);
     } 
@@ -73,7 +75,7 @@ int REGISTER_SOCK(char* SERVERNAME, int PORT)
     listen(s, BACKLOG);
 
     // now accept an incoming connection:
-    addr_size = sizeof client_addr;
+    addr_size = sizeof(client_addr);
     (void)fcntl(s, F_SETFL, fcntl(s, F_GETFL, 0) | O_NONBLOCK);
 
     return s;
@@ -110,6 +112,7 @@ void SIM_APP_Tasks ( void )
         if (retval == 0){
           printf("CLOSING SOCKET MAIN %d \r\n", i);
           close_socket(uart_socks[i]);
+          reset_counters();
         }
       }
     } 

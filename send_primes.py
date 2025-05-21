@@ -88,7 +88,7 @@ if __name__ == "__main__":
     ptest.connect_u2()
     ptest.connect_u3()
 
-    nonprimes = list(range(1, int(np.sqrt(100000))))
+    nonprimes = list(range(2, int(np.sqrt(100000))))
 
     selected_nonprimes = []
     received_responses = []
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             selected_nonprimes.append(nonprime)
             ptest.send_prime(nonprime)
 
-        time.sleep(0.01)
+        time.sleep(0.05)
 
         ptest.csock3.setblocking(0)
         try:
