@@ -25,6 +25,7 @@
 #define BACKLOG 1   
 #define NUM_SOCKS 2
 
+// Callback function forward declearation
 extern void reset_counters();
 
 SIM_SOCKET_DATA sim_socks[MAX_SOCKET_CONNECTIONS];

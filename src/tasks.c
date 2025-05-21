@@ -58,8 +58,8 @@ void Task1_Loop (QueueHandle_t prime_number_queue)
     uint8_t buffer[sizeof(uint32_t)];
     size_t bytes_read = UART2_Read(buffer, sizeof(buffer));
 
-    if(bytes_read == 0){
-        // vTaskDelay(10);
+    if(bytes_read == 0)
+    {
         return;
     }
 
