@@ -44,8 +44,11 @@ Response must return in the same order as the numbers were received.
 ``` docker build -t prime_test . ```
 - Run container
 ``` docker run -it -p 52002:52002 -p 52003:52003 prime_test```
-- Run python test in another terminal (may require installing additional libraries)
-``` python send_primes.py```
+- Create venv with ```python -m venv venv```
+- Activate environment with ```source venv/bin/activate```
+- Install deps with ```pip install -r requirements.txt```
+- Run python test in another terminal
+``` python test_primes.py```
 
 - If successful the script should print out:
 ``` Number of failed divisions: 0 ```
